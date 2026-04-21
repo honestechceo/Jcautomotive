@@ -528,7 +528,13 @@ letter-spacing:.15em;text-transform:uppercase;color:#888;flex-wrap:wrap;gap:12px
       <span>FORM · JC-01</span>
     </div>
 
-    <form id="bookingForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+    <form id="bookingForm" action="https://formsubmit.co/jcautomoitve@gmail.com" method="POST" novalidate>
+      <!-- FormSubmit configuration -->
+      <input type="hidden" name="_subject" value="New Quote Request - JC Automotive">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://jcautomotiveservices.com/?submitted=true">
+      <input type="text" name="_honey" style="display:none">
       <!-- Customer -->
       <div class="field">
         <label for="name">Full Name <span class="req">*</span></label>
@@ -689,18 +695,21 @@ letter-spacing:.15em;text-transform:uppercase;color:#888;flex-wrap:wrap;gap:12px
       return;
     }
 
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    // Build a clean subject line including vehicle and customer name
     const name = form.name.value.trim();
     const year = form.year.value.trim();
     const make = form.make.value.trim();
     const model = form.model.value.trim();
-
-    const data = new FormData(form);
-    data.append('_subject', `Quote Request · ${year} ${make} ${model} · ${name}`);
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
+    const subjectField = form.querySelector('input[name="_subject"]');
+    if (subjectField) {
+      subjectField.value = `Quote Request - ${year} ${make} ${model} - ${name}`;
+    }
 
     try {
+      const data = new FormData(form);
       const res = await fetch(form.action, {
         method: 'POST',
         body: data,
@@ -712,16 +721,12 @@ letter-spacing:.15em;text-transform:uppercase;color:#888;flex-wrap:wrap;gap:12px
         success.classList.add('show');
         success.scrollIntoView({behavior:'smooth', block:'center'});
       } else {
-        const json = await res.json().catch(()=>({}));
-        const msg = json.errors ? json.errors.map(e=>e.message).join(', ') : 'Something went wrong. Please try again or call the shop.';
-        alert(msg);
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit Request →';
+        // Fall back to a regular submit so FormSubmit handles it natively
+        form.submit();
       }
     } catch (err) {
-      alert('Could not submit — check your internet connection or call us at (732) 539-7329.');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit Request →';
+      // If fetch fails (e.g. CORS), just do a normal submit and let FormSubmit redirect
+      form.submit();
     }
   });
 </script>
