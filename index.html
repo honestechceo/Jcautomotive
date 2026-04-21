@@ -202,29 +202,6 @@ font-size:28px;letter-spacing:.02em;text-transform:uppercase;line-height:1;
 .service:nth-child(3n){border-right:2px solid var(–ink)}
 }
 
-/* WHY / STATS */
-.why{background:#0a0e14;color:var(–ink)}
-.why .section-head{border-bottom-color:var(–hi)}
-.why .section-title em{color:#fff}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:2px solid var(–hi);}
-@media (max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
-.stat{
-padding:36px 24px;border-right:2px solid var(–hi);
-position:relative;
-}
-.stat:last-child{border-right:none}
-@media (max-width:760px){
-.stat:nth-child(2n){border-right:none}
-.stat:nth-child(-n+2){border-bottom:2px solid var(–hi)}
-}
-.stat-num{
-font-family:‘Archivo Black’,sans-serif;font-size:56px;color:var(–hi);line-height:1;
-}
-.stat-lab{
-font-family:‘JetBrains Mono’,monospace;font-size:11px;
-letter-spacing:.2em;text-transform:uppercase;color:var(–ink);margin-top:8px;
-}
-
 /* BOOKING FORM */
 .booking{background:var(–paper);position:relative}
 .booking::before{
@@ -587,17 +564,18 @@ letter-spacing:.15em;text-transform:uppercase;color:#888;flex-wrap:wrap;gap:12px
 
       <!-- Service -->
       <div class="field">
-        <label>Service Needed <span class="req">*</span> <span style="color:var(--mut);font-weight:500">— select all that apply</span></label>
-        <div class="service-chips" id="serviceChips">
-          <label class="chip"><input type="checkbox" name="services" value="Maintenance"><span>Maintenance</span></label>
-          <label class="chip"><input type="checkbox" name="services" value="Oil Change"><span>Oil Change</span></label>
-          <label class="chip"><input type="checkbox" name="services" value="Brakes"><span>Brakes</span></label>
-          <label class="chip"><input type="checkbox" name="services" value="Alternator"><span>Alternator</span></label>
-          <label class="chip"><input type="checkbox" name="services" value="Belts"><span>Belts</span></label>
-          <label class="chip"><input type="checkbox" name="services" value="Starter"><span>Starter</span></label>
-          <label class="chip"><input type="checkbox" name="services" value="Tune-Up"><span>Tune-Up</span></label>
-          <label class="chip"><input type="checkbox" name="services" value="Other"><span>Other / Not sure</span></label>
-        </div>
+        <label for="service">Service Needed <span class="req">*</span></label>
+        <select id="service" name="service" required>
+          <option value="">Select a service</option>
+          <option value="Maintenance">Maintenance</option>
+          <option value="Oil Change">Oil Change</option>
+          <option value="Brakes">Brakes</option>
+          <option value="Alternator">Alternator</option>
+          <option value="Belts">Belts</option>
+          <option value="Starter">Starter</option>
+          <option value="Tune-Up">Tune-Up</option>
+          <option value="Other">Other / Not sure</option>
+        </select>
       </div>
 
       <!-- Date / Time -->
@@ -706,28 +684,18 @@ letter-spacing:.15em;text-transform:uppercase;color:#888;flex-wrap:wrap;gap:12px
 
   form.addEventListener('submit', async (e)=>{
     e.preventDefault();
-    // basic check: at least one service chosen
-    const services = form.querySelectorAll('input[name="services"]:checked');
-    if(services.length === 0){
-      alert('Please pick at least one service.');
-      return;
-    }
     if(!form.checkValidity()){
       form.reportValidity();
       return;
     }
 
-    // Build a clean _subject line and human-readable services list
     const name = form.name.value.trim();
     const year = form.year.value.trim();
     const make = form.make.value.trim();
     const model = form.model.value.trim();
-    const selectedServices = Array.from(services).map(s => s.value).join(', ');
 
-    // Build FormData and add helper fields for nicer email formatting
     const data = new FormData(form);
     data.append('_subject', `Quote Request · ${year} ${make} ${model} · ${name}`);
-    data.set('services_list', selectedServices); // flattens the checkbox list for email
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
