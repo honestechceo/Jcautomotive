@@ -107,14 +107,13 @@ border-bottom:2px solid var(–ink);
 }
 .hero-grid{
 max-width:1280px;margin:0 auto;
-display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:center;
+display:block;
 }
-@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px}}
 .hero-eyebrow{
 display:inline-flex;align-items:center;gap:10px;
 font-family:‘JetBrains Mono’,monospace;font-size:12px;
 letter-spacing:.2em;text-transform:uppercase;
-background:var(–ink);color:var(–hi);
+background:#0a0e14;color:var(–hi);
 padding:8px 14px;margin-bottom:24px;
 }
 .hero-eyebrow::before{content:“■”;color:var(–hi)}  h1.hero-title{
@@ -143,31 +142,6 @@ transition:transform .15s ease, box-shadow .15s ease;
 .btn-ghost{background:transparent;color:var(–ink)}
 .btn-ghost:hover{background:#0a0e14;color:var(–ink)}
 
-/* hero visual */
-.hero-visual{
-position:relative;
-aspect-ratio:1/1;
-background:#0a0e14;
-border:2px solid var(–ink);
-box-shadow:10px 10px 0 var(–hi);
-overflow:hidden;
-display:flex;align-items:center;justify-content:center;
-}
-.hero-visual svg{width:85%;height:auto;color:var(–hi)}
-.hero-tag{
-position:absolute;top:20px;left:20px;
-background:var(–hi);color:#fff;
-font-family:‘JetBrains Mono’,monospace;font-size:10px;
-letter-spacing:.2em;text-transform:uppercase;
-padding:6px 10px;
-}
-.hero-meta{
-position:absolute;bottom:20px;right:20px;
-background:var(–ink);color:#0a0e14;
-font-family:‘JetBrains Mono’,monospace;font-size:10px;
-padding:6px 10px;
-border:1px solid var(–ink);
-}
 /* caution stripe */
 .caution{
 height:16px;
@@ -248,7 +222,7 @@ font-family:‘Archivo Black’,sans-serif;font-size:56px;color:var(–hi);line-
 }
 .stat-lab{
 font-family:‘JetBrains Mono’,monospace;font-size:11px;
-letter-spacing:.2em;text-transform:uppercase;color:var(–paper);margin-top:8px;
+letter-spacing:.2em;text-transform:uppercase;color:var(–ink);margin-top:8px;
 }
 
 /* BOOKING FORM */
@@ -446,7 +420,6 @@ letter-spacing:.15em;text-transform:uppercase;color:#888;flex-wrap:wrap;gap:12px
   </a>
   <div class="nav-links">
     <a href="#services">Services</a>
-    <a href="#why">Shop</a>
     <a href="#book">Contact</a>
     <a href="#book" class="nav-cta">Get a Quote</a>
   </div>
@@ -470,28 +443,6 @@ letter-spacing:.15em;text-transform:uppercase;color:#888;flex-wrap:wrap;gap:12px
         <a href="#book" class="btn btn-primary">Request a Quote →</a>
         <a href="tel:7325397329" class="btn btn-ghost">Call the shop</a>
       </div>
-    </div>
-    <div class="hero-visual reveal on" style="transition-delay:.2s">
-      <span class="hero-tag">◉ Bay 01</span>
-      <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <!-- gear -->
-        <circle cx="100" cy="100" r="42"/>
-        <circle cx="100" cy="100" r="14" fill="currentColor"/>
-        <g>
-          <line x1="100" y1="38" x2="100" y2="58"/>
-          <line x1="100" y1="142" x2="100" y2="162"/>
-          <line x1="38" y1="100" x2="58" y2="100"/>
-          <line x1="142" y1="100" x2="162" y2="100"/>
-          <line x1="56" y1="56" x2="70" y2="70"/>
-          <line x1="130" y1="130" x2="144" y2="144"/>
-          <line x1="144" y1="56" x2="130" y2="70"/>
-          <line x1="70" y1="130" x2="56" y2="144"/>
-        </g>
-        <!-- wrench -->
-        <path d="M 20 180 L 60 140 L 72 152 L 32 192 Z" fill="currentColor" opacity=".85"/>
-        <circle cx="70" cy="135" r="16"/>
-      </svg>
-      <span class="hero-meta">ETA · Same-Day Quote</span>
     </div>
   </div>
 </header>
@@ -567,29 +518,12 @@ letter-spacing:.15em;text-transform:uppercase;color:#888;flex-wrap:wrap;gap:12px
   </div>
 </section>
 
-<!-- WHY -->
-
-<section id="why" class="why">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="section-num" style="color:#888">Ⅱ · The shop</div>
-      <h2 class="section-title" style="color:var(--paper)">Local. <em>Trusted.</em><br>Straightforward.</h2>
-    </div>
-    <div class="stats">
-      <div class="stat"><div class="stat-num">20+</div><div class="stat-lab">Years Wrenching</div></div>
-      <div class="stat"><div class="stat-num">4.9★</div><div class="stat-lab">Avg. Customer Rating</div></div>
-      <div class="stat"><div class="stat-num">24hr</div><div class="stat-lab">Typical Turnaround</div></div>
-      <div class="stat"><div class="stat-num">100%</div><div class="stat-lab">Monmouth County</div></div>
-    </div>
-  </div>
-</section>
-
 <!-- BOOKING FORM -->
 
 <section id="book" class="booking">
   <div class="wrap">
     <div class="section-head">
-      <div class="section-num">Ⅲ · Get in the bay</div>
+      <div class="section-num">Ⅱ · Get in the bay</div>
       <h2 class="section-title">Request a <em>quote</em><br>or book your service.</h2>
     </div>
 
